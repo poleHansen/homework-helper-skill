@@ -77,3 +77,6 @@ scripts/
 - 不支持扫描件/图片型 PDF（没有文字层，无法定位题号）
 - PDF 打分手写效果依赖系统字体 `STXINGKA.TTF`（华文行楷）与 `Inkfree.ttf`，Windows 自带
 - 一次建议不超过 60 份，超过时分批批改，最后合并 `grades/` 再生成统计表
+
+## 致谢
+感谢 [linuxdo（linux.do） ](https://linux.do/) 社区的交流、分享与反馈。
