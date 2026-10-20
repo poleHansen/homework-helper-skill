@@ -1,0 +1,9 @@
+# 批改结果：skill 运行时产出的中间文件与结果，可重复生成，不入库
+批改结果/
+
+# WorkBuddy IDE 项目数据目录，非 skill 交付物
+.workbuddy/
+
+# Python 运行时缓存
+__pycache__/
+*.pyc
