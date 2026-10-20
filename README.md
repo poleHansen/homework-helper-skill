@@ -9,16 +9,22 @@
 
 ## 安装
 
-依赖 Python 3.10+ 与以下库：
+一条命令（需要 Node.js）：
+
+```bash
+npx skills add poleHansen/homework-helper-skill --skill homework-grader
+```
+
+按提示选择要安装到的 agent 即可。也可以直接把 `skills/homework-grader/` 整个目录拷到目标 skills 目录，例如 WorkBuddy：
+
+- 用户级：`~/.workbuddy/skills/homework-grader/`
+- 项目级：`<项目>/.workbuddy/skills/homework-grader/`
+
+运行依赖 Python 3.10+ 与以下库：
 
 ```bash
 pip install pymupdf python-docx openpyxl pillow
 ```
-
-作为 skill 使用，把整个目录放到 skills 目录下（或建目录链接）：
-
-- 用户级：`~/.workbuddy/skills/homework-grader/`
-- 项目级：`<项目>/.workbuddy/skills/homework-grader/`
 
 ## 使用
 
@@ -27,36 +33,39 @@ pip install pymupdf python-docx openpyxl pillow
 手工调用脚本的顺序：
 
 ```bash
+S=skills/homework-grader/scripts
 W=批改结果
 
 # 1. 解压
-python scripts/prepare.py 全班作业.zip $W
+python $S/prepare.py 全班作业.zip $W
 
 # 2. 读要求文档，写 $W/rubric.json（评分点与分值）
 
 # 3. 逐份抽取文本与图片
-python scripts/extract.py $W/submissions/张三.docx $W/extracted/张三
+python $S/extract.py $W/submissions/张三.docx $W/extracted/张三
 
 # 4. 读 content.md 和 images/ 判分，写 $W/grades/张三.json
 
 # 5. 落笔
-python scripts/annotate_docx.py $W/grades/张三.json $W/submissions/张三.docx $W/result/张三.docx
-python scripts/annotate_pdf.py  $W/grades/张三.json $W/submissions/张三.pdf  $W/result/张三.pdf
+python $S/annotate_docx.py $W/grades/张三.json $W/submissions/张三.docx $W/result/张三.docx
+python $S/annotate_pdf.py  $W/grades/张三.json $W/submissions/张三.pdf  $W/result/张三.pdf
 
 # 6. 统计表
-python scripts/make_excel.py $W/grades $W/批改统计.xlsx
+python $S/make_excel.py $W/grades $W/批改统计.xlsx
 ```
 
 ## 目录结构
 
 ```
-SKILL.md              工作流说明（给 Agent 读）
-scripts/
-  prepare.py          解压、修中文文件名乱码、生成清单
-  extract.py          docx/pdf → content.md + images/
-  annotate_docx.py    题末追加红色分数
-  annotate_pdf.py     页边手写红笔打分 + 末页总分
-  make_excel.py       汇总成绩表
+skills/
+  homework-grader/
+    SKILL.md              工作流说明（给 Agent 读）
+    scripts/
+      prepare.py          解压、修中文文件名乱码、生成清单
+      extract.py          docx/pdf → content.md + images/
+      annotate_docx.py    题末追加红色分数
+      annotate_pdf.py     页边手写红笔打分 + 末页总分
+      make_excel.py       汇总成绩表
 ```
 
 ## 产出
