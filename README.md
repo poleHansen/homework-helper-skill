@@ -15,10 +15,10 @@
 npx skills add poleHansen/homework-helper-skill --skill homework-grader
 ```
 
-按提示选择要安装到的 agent 即可。也可以直接把 `skills/homework-grader/` 整个目录拷到目标 skills 目录，例如 WorkBuddy：
+按提示选择要安装到的 agent 即可。也可以直接把 `skills/homework-grader/` 整个目录拷到目标 skills 目录，例如 codex：
 
-- 用户级：`~/.workbuddy/skills/homework-grader/`
-- 项目级：`<项目>/.workbuddy/skills/homework-grader/`
+- 用户级：`~/.codex/skills/homework-grader/`
+- 项目级：`<项目>/.codex/skills/homework-grader/`
 
 运行依赖 Python 3.10+ 与以下库：
 
@@ -28,7 +28,7 @@ pip install pymupdf python-docx openpyxl pillow
 
 ## 使用
 
-把评分要求文档和作业压缩包交给 WorkBuddy，说「批改这批作业」即可，`SKILL.md` 里定义了完整工作流。
+把评分要求文档和作业压缩包交给 codex或者其他agent，说「批改这批作业」即可，`SKILL.md` 里定义了完整工作流。
 
 手工调用脚本的顺序：
 
