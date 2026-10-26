@@ -89,7 +89,8 @@ def main(grades_path, src, dst):
 
     total = data.get("total")
     if total:
-        p = doc.add_paragraph()
+        # 总分写在文档开头，右对齐
+        p = doc.paragraphs[0].insert_paragraph_before() if doc.paragraphs else doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         text = f"总分：{total['score']}" + (f"/{total['max']}" if total.get("max") else "")
         run = p.add_run(text)

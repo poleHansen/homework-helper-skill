@@ -86,10 +86,10 @@ python scripts/batch_extract.py <W>/manifest.json <W>/extracted
 ### 第 5 步：落笔
 
 ```bash
-# PDF：题号左侧白边写手写红分数，末页右下写总分
+# PDF：题号左侧白边写手写红分数，首页右上角写总分
 python scripts/annotate_pdf.py <grades json> <原PDF> <W>/result/<文件名>
 
-# Word：题目标题末尾追加红色分数，文末追加总分
+# Word：题目标题末尾追加红色分数，文档开头右上角写总分
 python scripts/annotate_docx.py <grades json> <原docx> <W>/result/<文件名>
 ```
 

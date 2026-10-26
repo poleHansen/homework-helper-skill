@@ -1,4 +1,4 @@
-"""在 PDF 作业上落笔：按评分点在题号左侧空白处写红色手写分数，末页写总分。
+"""在 PDF 作业上落笔：按评分点在题号左侧空白处写红色手写分数，首页右上角写总分。
 
 用法：
     python annotate_pdf.py <成绩json> <原PDF> <输出PDF>
@@ -152,17 +152,17 @@ def main(grades_path, src, dst):
 
     total = data.get("total")
     if total:
-        last = doc[-1]
+        first = doc[0]
         text = f"{total['score']}/{total['max']}" if total.get("max") else f"{total['score']}"
         img, w, h = render(text, size * 1.15)
         temps.append(img)
-        box = pymupdf.Rect(last.rect.width - w - 46, last.rect.height - h - 52,
-                           last.rect.width - 46, last.rect.height - 52)
-        for _ in range(3):
-            if not overlaps(last, box):
+        # 总分写在第一页右上角
+        box = pymupdf.Rect(first.rect.width - w - 30, 26, first.rect.width - 30, 26 + h)
+        for _ in range(6):
+            if not overlaps(first, box):
                 break
-            box = box + (0, -h - 10, 0, -h - 10)
-        last.insert_image(box, filename=img)
+            box = box + (0, h + 8, 0, h + 8)   # 与页眉/正文重叠时往下挪
+        first.insert_image(box, filename=img)
 
     os.makedirs(os.path.dirname(os.path.abspath(dst)) or ".", exist_ok=True)
     doc.save(dst, garbage=3, deflate=True)
