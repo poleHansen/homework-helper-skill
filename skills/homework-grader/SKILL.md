@@ -46,11 +46,14 @@ python scripts/prepare.py <压缩包> <W>
 ### 第 3 步：逐份抽取
 
 ```bash
-python scripts/extract.py <作业文件> <W>/extracted/<序号>_<姓名>
+python scripts/batch_extract.py <W>/manifest.json <W>/extracted
 ```
 
-得到 `content.md`（正文，含页码标记）和 `images/`（正文中的全部图片，含实验结果截图）。
+脚本会遍历清单里的**全部**文件（pdf 与 docx 都处理），逐份生成
+`<序号>_<姓名>/content.md`（正文，含页码标记）和 `images/`（正文中的全部图片，含实验结果截图）。
 图片在 `content.md` 里以 `![](images/xxx.png)` 标注在对应位置。
+
+**不要手动逐份调 `extract.py`**，统一用 `batch_extract.py`，避免混入 docx 的作业被漏抽。
 
 ### 第 4 步：逐份批改
 

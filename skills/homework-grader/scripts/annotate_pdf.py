@@ -77,16 +77,23 @@ def search_loose(page, needle):
 
 
 def find_anchor(doc, text):
-    """在全文按顺序找锚点文本，返回 (页码, Rect)。允许锚点被换行拆开时截断重试。"""
+    """在全文找锚点文本，返回 (页码, Rect)。
+
+    同一锚点可能出现在目录页和正文页（目录在前、正文在后），取最后一处出现，
+    保证分数落在正文而非目录。允许锚点被换行拆开时截断重试。
+    """
     text = text.strip()
     probes = [text, text[:10], text[:6]]
     for probe in probes:
         if not probe.strip():
             continue
+        found = None
         for pno in range(len(doc)):
             rect = search_loose(doc[pno], probe)
             if rect:
-                return pno, rect
+                found = (pno, rect)
+        if found:
+            return found
     return None, None
 
 
